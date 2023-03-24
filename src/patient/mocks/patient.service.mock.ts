@@ -8,4 +8,8 @@ export class PatientServiceMock implements PatientServiceInterface {
   create(data: createPatientDto): Promise<Patient> {
     return PatientMock as any;
   }
+
+  findOne(id: string): Promise<Patient> {
+    return PatientMock as any;
+  }
 }

@@ -18,6 +18,7 @@ describe('PatientController', () => {
           provide: PatientService,
           useValue: {
             create: jest.fn().mockImplementation(serviceMock.create),
+            findOne: jest.fn().mockImplementation(serviceMock.findOne),
           },
         },
       ],
@@ -35,6 +36,17 @@ describe('PatientController', () => {
   describe('create', () => {
     it('create should call service', async () => {
       const data = await controller.create(createPatientMock);
+
+      expect(data.name).toBe(PatientMock.name);
+      expect(data.email).toBe(PatientMock.email);
+      expect(data.createdAt).toBe(PatientMock.createdAt);
+      expect(data.updatedAt).toBe(PatientMock.updatedAt);
+    });
+  });
+
+  describe('findOne', () => {
+    it('findOne should call service', async () => {
+      const data = await controller.findOne('123');
 
       expect(data.name).toBe(PatientMock.name);
       expect(data.email).toBe(PatientMock.email);
