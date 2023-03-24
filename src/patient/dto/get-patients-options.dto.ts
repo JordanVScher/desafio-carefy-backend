@@ -1,11 +1,12 @@
-import { IsNotEmpty, IsNumber } from 'class-validator';
+import { IsNotEmpty, Validate } from 'class-validator';
+import { PositiveIntegerValidator } from '../../validators/integer.validator';
 
 export class GetPatientsOptionsDto {
-  @IsNumber()
   @IsNotEmpty()
+  @Validate(PositiveIntegerValidator)
   limit: number;
 
-  @IsNumber()
   @IsNotEmpty()
+  @Validate(PositiveIntegerValidator)
   page: number;
 }
