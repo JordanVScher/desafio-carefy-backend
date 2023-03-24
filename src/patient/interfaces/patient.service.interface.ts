@@ -1,6 +1,6 @@
 import { createPatientDto } from '../dto/create-patient.dto';
-import { PatientDto } from '../dto/patient.dto';
+import { Patient } from '../schemas/patient.schema';
 
 export interface PatientServiceInterface {
-  create(data: createPatientDto): PatientDto;
+  create(data: createPatientDto): Promise<Patient>;
 }

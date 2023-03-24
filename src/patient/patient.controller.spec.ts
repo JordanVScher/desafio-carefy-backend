@@ -38,8 +38,8 @@ describe('PatientController', () => {
 
       expect(data.name).toBe(PatientMock.name);
       expect(data.email).toBe(PatientMock.email);
-      expect(data.created_at).toBe(PatientMock.created_at);
-      expect(data.updated_at).toBe(PatientMock.updated_at);
+      expect(data.createdAt).toBe(PatientMock.createdAt);
+      expect(data.updatedAt).toBe(PatientMock.updatedAt);
     });
   });
 });
