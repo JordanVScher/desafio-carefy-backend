@@ -1,4 +1,5 @@
 import { createPatientDto } from '../dto/create-patient.dto';
+import { GetPatientsOptionsDto } from '../dto/get-patients-options.dto';
 import { UpdatePatientDto } from '../dto/update-patient.dto';
 import { PatientServiceInterface } from '../interfaces/patient.service.interface';
 import { Patient, PatientDocument } from '../schemas/patient.schema';
@@ -11,6 +12,10 @@ export class PatientServiceMock implements PatientServiceInterface {
 
   findOne(id: string): Promise<PatientDocument> {
     return PatientMock as any;
+  }
+
+  findMany(options: GetPatientsOptionsDto): Promise<PatientDocument[]> {
+    return [PatientMock] as any;
   }
 
   update(id: string, newData: UpdatePatientDto): Promise<PatientDocument> {

@@ -5,6 +5,7 @@ import { createPatientDto } from './dto/create-patient.dto';
 import { UpdatePatientDto } from './dto/update-patient.dto';
 import { PatientServiceInterface } from './interfaces/patient.service.interface';
 import { Patient, PatientDocument } from './schemas/patient.schema';
+import { GetPatientsOptionsDto } from './dto/get-patients-options.dto';
 
 @Injectable()
 export class PatientService implements PatientServiceInterface {
@@ -21,6 +22,12 @@ export class PatientService implements PatientServiceInterface {
     const patientFound = await this.patientModel.findById(id);
     if (!patientFound) throw new HttpException('Patient not found', 404);
     return patientFound;
+  }
+
+  async findMany(options: GetPatientsOptionsDto): Promise<PatientDocument[]> {
+    const { limit, page } = options;
+    const skip = (page - 1) * limit;
+    return this.patientModel.find({}).limit(limit).skip(skip);
   }
 
   async update(
