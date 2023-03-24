@@ -1,20 +1,45 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { PatientServiceInterface } from './interfaces/patient.service.interface';
+import { createPatientMock } from './mocks/create-patient.mock';
+import { PatientMock } from './mocks/patient.mock';
+import { PatientServiceMock } from './mocks/patient.service.mock';
 import { PatientController } from './patient.controller';
 import { PatientService } from './patient.service';
 
 describe('PatientController', () => {
   let controller: PatientController;
+  let service: PatientServiceInterface;
+  const serviceMock = new PatientServiceMock();
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [PatientService],
+      providers: [
+        {
+          provide: PatientService,
+          useValue: {
+            create: jest.fn().mockImplementation(serviceMock.create),
+          },
+        },
+      ],
       controllers: [PatientController],
     }).compile();
 
     controller = module.get<PatientController>(PatientController);
+    service = new PatientServiceMock();
   });
 
   it('should be defined', () => {
     expect(controller).toBeDefined();
+  });
+
+  describe('create', () => {
+    it('create should call service', async () => {
+      const data = await controller.create(createPatientMock);
+
+      expect(data.name).toBe(PatientMock.name);
+      expect(data.email).toBe(PatientMock.email);
+      expect(data.created_at).toBe(PatientMock.created_at);
+      expect(data.updated_at).toBe(PatientMock.updated_at);
+    });
   });
 });

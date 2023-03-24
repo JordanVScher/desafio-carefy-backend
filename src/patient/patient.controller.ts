@@ -1,4 +1,6 @@
-import { Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
+import { createPatientDto } from './dto/create-patient.dto';
+import { PatientDto } from './dto/patient.dto';
 
 import { PatientService } from './patient.service';
 
@@ -7,7 +9,7 @@ export class PatientController {
   constructor(private readonly patientService: PatientService) {}
 
   @Post()
-  create(data) {
-    return this.patientService.create(data);
+  create(@Body() createPatient: createPatientDto): PatientDto {
+    return this.patientService.create(createPatient);
   }
 }
