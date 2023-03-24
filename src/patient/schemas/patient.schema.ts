@@ -5,7 +5,6 @@ export type PatientDocument = HydratedDocument<Patient>;
 
 @Schema({ timestamps: true })
 export class Patient {
-  // @Prop()
   _id: MongooseSchema.Types.ObjectId;
 
   @Prop({ required: true })

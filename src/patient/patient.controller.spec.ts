@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { UpdatePatientDto } from './dto/update-patient.dto';
 import { PatientServiceInterface } from './interfaces/patient.service.interface';
 import { createPatientMock } from './mocks/create-patient.mock';
 import { PatientMock } from './mocks/patient.mock';
@@ -20,6 +21,7 @@ describe('PatientController', () => {
             create: jest.fn().mockImplementation(serviceMock.create),
             findOne: jest.fn().mockImplementation(serviceMock.findOne),
             remove: jest.fn().mockImplementation(serviceMock.remove),
+            update: jest.fn().mockImplementation(serviceMock.update),
           },
         },
       ],
@@ -48,6 +50,20 @@ describe('PatientController', () => {
   describe('findOne', () => {
     it('findOne should call service', async () => {
       const data = await controller.findOne('123');
+
+      expect(data.name).toBe(PatientMock.name);
+      expect(data.email).toBe(PatientMock.email);
+      expect(data.createdAt).toBe(PatientMock.createdAt);
+      expect(data.updatedAt).toBe(PatientMock.updatedAt);
+    });
+  });
+
+  describe('update', () => {
+    it('update should call service', async () => {
+      const data = await controller.update('123', {
+        name: 'foobar',
+        email: 'bar@foo.com',
+      });
 
       expect(data.name).toBe(PatientMock.name);
       expect(data.email).toBe(PatientMock.email);
