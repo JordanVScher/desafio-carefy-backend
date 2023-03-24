@@ -12,4 +12,8 @@ export class PatientServiceMock implements PatientServiceInterface {
   findOne(id: string): Promise<Patient> {
     return PatientMock as any;
   }
+
+  remove(id: string): Promise<Patient> {
+    return PatientMock as any;
+  }
 }

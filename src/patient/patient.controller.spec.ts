@@ -19,6 +19,7 @@ describe('PatientController', () => {
           useValue: {
             create: jest.fn().mockImplementation(serviceMock.create),
             findOne: jest.fn().mockImplementation(serviceMock.findOne),
+            remove: jest.fn().mockImplementation(serviceMock.remove),
           },
         },
       ],
@@ -47,6 +48,17 @@ describe('PatientController', () => {
   describe('findOne', () => {
     it('findOne should call service', async () => {
       const data = await controller.findOne('123');
+
+      expect(data.name).toBe(PatientMock.name);
+      expect(data.email).toBe(PatientMock.email);
+      expect(data.createdAt).toBe(PatientMock.createdAt);
+      expect(data.updatedAt).toBe(PatientMock.updatedAt);
+    });
+  });
+
+  describe('remove', () => {
+    it('remove should call service', async () => {
+      const data = await controller.remove('123');
 
       expect(data.name).toBe(PatientMock.name);
       expect(data.email).toBe(PatientMock.email);

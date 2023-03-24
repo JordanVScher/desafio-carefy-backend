@@ -21,4 +21,10 @@ export class PatientService implements PatientServiceInterface {
     if (!patientFound) throw new HttpException('Patient not found', 404);
     return patientFound;
   }
+
+  async remove(id: string): Promise<Patient> {
+    const patientFound = await this.findOne(id);
+    await this.patientModel.findOneAndDelete(patientFound._id);
+    return patientFound;
+  }
 }
