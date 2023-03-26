@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { createPatientDto } from './dto/create-patient.dto';
 import { GetPatientsOptionsDto } from './dto/get-patients-options.dto';
@@ -28,7 +29,7 @@ export class PatientController {
   }
 
   @Get()
-  findMany(@Body() getPatientsOptions: GetPatientsOptionsDto) {
+  findMany(@Query() getPatientsOptions: GetPatientsOptionsDto) {
     return this.patientService.findMany(getPatientsOptions);
   }
 
