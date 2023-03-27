@@ -8,20 +8,6 @@ import env from './config/env.js';
 import { Logger, ValidationPipe } from '@nestjs/common';
 
 const portNumber = env.NODE_PORT;
-const corsAllowedOrigins = env.CORS_ALLOWED_ORIGINS_REGEX;
-
-const headersList = [
-  'Content-Type',
-  'checkoutDataAccess',
-  'authorization',
-  'Access-Control-Allow-Origin',
-  'Connection',
-  'Origin',
-  'user-agent',
-  'X-Cobasi-Session',
-  'X-Cobasi-Email',
-  'Set-Cookie',
-];
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -33,12 +19,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
 
-  app.enableCors({
-    origin: new RegExp(corsAllowedOrigins),
-    allowedHeaders: headersList,
-    exposedHeaders: headersList,
-    credentials: true,
-  });
+  app.enableCors();
 
   app.useGlobalPipes(new ValidationPipe());
   await app.listen(portNumber);
